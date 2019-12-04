@@ -1,0 +1,8 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.oracle.jdbc</groupId>
+	<artifactId>xdb</artifactId>
+	<version>19.3</version>
+	<name>xdb v19.3</name>
+	<description>Proxy Maven Repository for com.oracle.jdbc 'xdb v19.3'</description>
+</project>

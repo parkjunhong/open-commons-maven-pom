@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: Maven POM Generator
+
+logging:
+  config: ./config/log4j2.yml
+
+# 
+maven:
+  description:
+    Proxy Maven Repository for com.oracle.jdbc '{artifactId} v{version}'
+  
+  modelVersion: 4.0.0
+  groupId: com.oracle.jdbc
+  versions:
+    ojdbc19_3: 19.3
+  #
+  # maven 라이브러리 대상은 다음과 같은 속성을 갖는다.
+  # filepath
+  # modelVersion
+  # groupId
+  # artifactId: 파일이름을 artifactiId로 사용하려면 예약문자열($file_name$) 설정
+  # version
+  # description
+  targets:
+    -
+      # 디렉토리에 있는 jar 파일을 모두 처리한느 경우
+      filepath: G:\03.WORKSPACE\open-commons\open-commons-maven-pom\tmp\19.3\ojdbc8-full
+      modelVersion: ${maven.modelVersion}
+      groupId: ${maven.groupId}
+      artifactId: $file_name$
+      version: ${maven.versions.ojdbc19_3}
+      description: ${maven.description}
+    -
+      # 파일을 선택하는 경우
+      filepath: G:\03.WORKSPACE\open-commons\open-commons-maven-pom\tmp\18.3\ojdbc8-full\ojdbc8.jar
+      modelVersion: ${maven.modelVersion}
+      groupId: ${maven.groupId}
+      artifactId: $file_name$
+      version: 18.3
+      description: ${maven.description}
+  pom:
+    template: config/pom.template

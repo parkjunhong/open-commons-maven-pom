@@ -1,0 +1,61 @@
+Configuration:
+  # Automatic Reconfiguration
+  monitorInterval: 10
+  Properties:
+    Property:
+      - name: logpath
+        value: /home/open-commons/tools
+      - name: logfile
+        value: maven-pom-gen.log
+      
+  Appenders:
+    Console:
+      - name: ConsoleByPattern
+        target: SYSTEM_OUT
+        PatternLayout:
+#          pattern: "%d{yyyy/MM/dd HH:mm:ss} | %10t | %5p | %10M | %m (%F:%L) %n"
+          pattern: "%highlight{%d{yyyy/MM/dd HH:mm:ss} | %10t | %5p | %m (%F:%L) %n}{WARN=Bright magenta, DEBUG=white, TRACE=Bright black}"
+    RollingFile:
+      name: RollingFileByPattern
+      fileName: ${logpath}/${logfile}
+      filePattern: ${logpath}/${logfile}-%d{yyyy-MM-dd}-%i.gz
+      append: true
+      PatternLayout:
+        pattern: "%highlight{%d{yyyy-MM-dd HH:mm:ss} | %10t | %5p | | %10M | %m (%C.java:%L)%n}{WARN=Bright magenta, DEBUG=white, TRACE=Bright black}"
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+        SizeBasedTriggeringPolicy:
+          size: 10MB          
+
+  Loggers:
+    Root:
+      level: WARN
+      includeLocation: true
+      AppenderRef:
+        - ref: ConsoleByPattern
+      
+    Logger:
+      - name: open.commons.maven.pom
+        level: DEBUG
+        includeLocation: true
+        additivity: false
+        AppenderRef:
+          - ref: ConsoleByPattern
+          - ref: RollingFileByPattern
+      - name: open.commons
+        level: TRACE
+        includeLocation: true
+        additivity: false
+        AppenderRef:
+          - ref: ConsoleByPattern
+          - ref: RollingFileByPattern
+      - name: org.springframework
+        level: INFO
+        includeLocation: true
+        additivity: false
+        AppenderRef:
+          - ref: ConsoleByPattern
+          - ref: RollingFileByPattern
+
